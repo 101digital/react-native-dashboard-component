@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, StyleProp, ViewStyle, TextStyle } from 'react-native';
-import { useUser, useWallet } from 'react-native-auth-component';
+import { useUser, useWallet } from 'react-native-dashboard-component';
 import { colors as defaultColors } from '../../assets/colors';
 
 type AccountSummaryComponentProps = {
