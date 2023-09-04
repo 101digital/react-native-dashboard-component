@@ -1,0 +1,664 @@
+{
+  "id": "auth-component",
+  "name": "Auth Component",
+  "repository": "https://github.com/101digital/auth-user-component",
+  "config": {
+    "env": {
+      "development": {
+        "clientId": "gltBKX0Xvbt5HTRPTPdcuicabRUa",
+        "clientSecret": "vCRObVDOb_vlEctFor8X6LFWArca",
+        "ternantDomain": "carbon.super",
+        "tokenBaseUrl": "https://sandbox.101digital.io/token",
+        "membershipBaseUrl": "https://sandbox.101digital.io/membership-service/1.2.1-SNAPSHOT",
+        "authGrantType": "password",
+        "authScope": "openid",
+        "appGrantType": "client_credentials",
+        "appScope": "PRODUCTION",
+        "redirectUrl": "pay101://outh2_callback",
+        "authorizationBaseUrl": "https://sandbox.101digital.io/oauth2/authorize",
+        "revocationBaseUrl": "https://sandbox.101digital.io/revoke",
+        "endSessionBaseUrl": "https://sandbox.101digital.io/oidc/logout"
+      },
+      "staging": {
+        "clientId": "gltBKX0Xvbt5HTRPTPdcuicabRUa",
+        "clientSecret": "vCRObVDOb_vlEctFor8X6LFWArca",
+        "ternantDomain": "carbon.super",
+        "tokenBaseUrl": "https://sandbox.101digital.io/token",
+        "membershipBaseUrl": "https://sandbox.101digital.io/membership-service/1.2.1-SNAPSHOT",
+        "authGrantType": "password",
+        "authScope": "openid",
+        "appGrantType": "client_credentials",
+        "appScope": "PRODUCTION",
+        "redirectUrl": "pay101://outh2_callback",
+        "authorizationBaseUrl": "https://sandbox.101digital.io/oauth2/authorize",
+        "revocationBaseUrl": "https://sandbox.101digital.io/revoke",
+        "endSessionBaseUrl": "https://sandbox.101digital.io/oidc/logout"
+      },
+      "production": {
+        "clientId": "vpqOwqOIY3l7gD4nzuEPgKgQ5Sca",
+        "clientSecret": "VfLff9SrxAwlJMW_TwzkFgnrSm8a",
+        "ternantDomain": "carbon.super",
+        "tokenBaseUrl": "https://api.101digital.io/token",
+        "membershipBaseUrl": "https://api.101digital.io/membership-service/v1.0",
+        "authGrantType": "password",
+        "authScope": "openid",
+        "appGrantType": "client_credentials",
+        "appScope": "PRODUCTION",
+        "redirectUrl": "pay101://outh2_callback",
+        "authorizationBaseUrl": "https://sandbox.101digital.io/oauth2/authorize",
+        "revocationBaseUrl": "https://sandbox.101digital.io/revoke",
+        "endSessionBaseUrl": "https://sandbox.101digital.io/oidc/logout"
+      }
+    }
+  },
+  "dependencies": [
+    { "name": "https://github.com/101digital/react-native-theme-component.git" },
+    { "name": "https://github.com/101digital/react-native-register-component.git" }
+  ],
+  "templates": [
+    {
+      "id": "login-email-template",
+      "templateName": "Login with email template",
+      "componentName": "LoginComponent",
+      "imports": [
+        "import { LoginComponent } from 'auth-user-component';",
+        "import { ThemeContext } from 'react-native-theme-component';"
+      ],
+      "headers": ["  const { i18n } = useContext(ThemeContext);"],
+      "renders": [
+        "      <LoginComponent",
+        "        Root={{",
+        "          props: {",
+        "            i18n: i18n,",
+        "            onLoginSuccess: (profile) => {",
+        "              $fn-login-success",
+        "            },",
+        "            onLoginFailed: (error) => {",
+        "              $fn-login-failed",
+        "            },",
+        "            onPressForgotPassword: () => {",
+        "              $fn-forgot-password",
+        "            },",
+        "            onPressRegister: () => {",
+        "              $fn-register",
+        "            },",
+        "          },",
+        "        }}",
+        "        InputForm={{",
+        "          style: { passwordInputFieldStyle: { containerStyle: { marginTop: 24 } } },",
+        "          props: {",
+        "            type: 'email',",
+        "          },",
+        "        }}",
+        "      />"
+      ],
+      "functions": [
+        {
+          "id": "fn-login-success",
+          "params": [
+            {
+              "name": "profile",
+              "type": "Profile"
+            }
+          ]
+        },
+        {
+          "id": "fn-login-failed",
+          "params": [
+            {
+              "name": "error",
+              "type": "Error"
+            }
+          ]
+        },
+        {
+          "id": "fn-forgot-password",
+          "params": []
+        },
+        {
+          "id": "fn-register",
+          "params": []
+        }
+      ]
+    },
+    {
+      "id": "login-phonenumber-template",
+      "templateName": "Login with phone number template",
+      "componentName": "LoginComponent",
+      "imports": [
+        "import { LoginComponent, LoginComponentRef } from 'auth-user-component';",
+        "import { CountryPicker, ThemeContext } from 'react-native-theme-component';"
+      ],
+      "headers": [
+        "  const [showCountryPicker, setShowCountryPicker] = useState(false);",
+        "  const { deviceCountryCode } = useContext(ThemeContext);",
+        "  const loginRefs = useRef<LoginComponentRef>();",
+        "",
+        "  useEffect(() => {",
+        "    if (deviceCountryCode) {",
+        "      loginRefs?.current?.updateCountryCode(deviceCountryCode);",
+        "    }",
+        "  }, [deviceCountryCode]);"
+      ],
+      "renders": [
+        "      <LoginComponent",
+        "        ref={loginRefs}",
+        "        Root={{",
+        "          props: {",
+        "            onLoginSuccess: (profile) => {",
+        "              $fn-login-success",
+        "            },",
+        "            onLoginFailed: (error) => {",
+        "              $fn-login-failed",
+        "            },",
+        "            onPressForgotPassword: () => {",
+        "              $fn-forgot-password",
+        "            },",
+        "            onPressRegister: () => {",
+        "              $fn-register",
+        "            },",
+        "          },",
+        "        }}",
+        "        InputForm={{",
+        "          style: { passwordInputFieldStyle: { containerStyle: { marginTop: 24 } } },",
+        "          props: {",
+        "            onPressDialCode: () => {",
+        "              setShowCountryPicker(true);",
+        "            },",
+        "          },",
+        "        }}",
+        "      />",
+        "      <CountryPicker",
+        "        isVisible={showCountryPicker}",
+        "        onClose={() => {",
+        "          setShowCountryPicker(false);",
+        "        }}",
+        "        onSelectedCountry={(code) => {",
+        "          setShowCountryPicker(false);",
+        "          loginRefs.current?.updateCountryCode(code);",
+        "        }}",
+        "      />"
+      ],
+      "functions": [
+        {
+          "id": "fn-login-success",
+          "params": [
+            {
+              "name": "profile",
+              "type": "Profile"
+            }
+          ]
+        },
+        {
+          "id": "fn-login-failed",
+          "params": [
+            {
+              "name": "error",
+              "type": "Error"
+            }
+          ]
+        },
+        {
+          "id": "fn-forgot-password",
+          "params": []
+        },
+        {
+          "id": "fn-register",
+          "params": []
+        }
+      ]
+    },
+    {
+      "id": "login-phonenumber-template-2",
+      "templateName": "Login with phone number template2",
+      "componentName": "LoginComponent",
+      "imports": [
+        "import { LoginComponent, LoginComponentRef } from 'auth-user-component';",
+        "import { CountryPicker, ThemeContext } from 'react-native-theme-component';"
+      ],
+      "headers": [
+        "  const [showCountryPicker, setShowCountryPicker] = useState(false);",
+        "  const { deviceCountryCode } = useContext(ThemeContext);",
+        "  const loginRefs = useRef<LoginComponentRef>();",
+        "",
+        "  useEffect(() => {",
+        "    if (deviceCountryCode) {",
+        "      loginRefs?.current?.updateCountryCode(deviceCountryCode);",
+        "    }",
+        "  }, [deviceCountryCode]);"
+      ],
+      "renders": [
+        "      <LoginComponent",
+        "        ref={loginRefs}",
+        "        Root={{",
+        "          props: {",
+        "            onLoginSuccess: (profile) => {",
+        "              $fn-login-success",
+        "            },",
+        "            onLoginFailed: (error) => {",
+        "              $fn-login-failed",
+        "            },",
+        "            onPressForgotPassword: () => {",
+        "              $fn-forgot-password",
+        "            },",
+        "            onPressRegister: () => {",
+        "              $fn-register",
+        "            },",
+        "          },",
+        "        }}",
+        "        InputForm={{",
+        "          component: {",
+        "            passwordIcon: <View />,",
+        "            usernameIcon: <View />,",
+        "          },",
+        "          style: {",
+        "            passwordInputFieldStyle: {",
+        "              containerStyle: { marginTop: 24 },",
+        "            },",
+        "            userNameInputFieldStyle: {",
+        "              contentContainerStyle: {",
+        "                borderWidth: 1,",
+        "                borderRadius: 5,",
+        "                borderBottomWidth: 1,",
+        "              },",
+        "              inputContainerStyle: {",
+        "                height: 42,",
+        "              },",
+        "              textInputStyle: {",
+        "                fontSize: 15,",
+        "                color: '#000000',",
+        "              },",
+        "            },",
+        "          },",
+        "          props: {",
+        "            onPressDialCode: () => {",
+        "              setShowCountryPicker(true);",
+        "            },",
+        "          },",
+        "        }}",
+        "      />",
+        "      <CountryPicker",
+        "        isVisible={showCountryPicker}",
+        "        onClose={() => {",
+        "          setShowCountryPicker(false);",
+        "        }}",
+        "        onSelectedCountry={(code) => {",
+        "          setShowCountryPicker(false);",
+        "          loginRefs.current?.updateCountryCode(code);",
+        "        }}",
+        "      />"
+      ],
+      "functions": [
+        {
+          "id": "fn-login-success",
+          "params": [
+            {
+              "name": "profile",
+              "type": "Profile"
+            }
+          ]
+        },
+        {
+          "id": "fn-login-failed",
+          "params": [
+            {
+              "name": "error",
+              "type": "Error"
+            }
+          ]
+        },
+        {
+          "id": "fn-forgot-password",
+          "params": []
+        },
+        {
+          "id": "fn-register",
+          "params": []
+        }
+      ]
+    },
+    {
+      "id": "logout-template",
+      "templateName": "Simple logout template",
+      "componentName": "LoginComponent",
+      "imports": [
+        "import { AuthContext } from 'auth-user-component';",
+        "import { Button } from 'react-native-theme-component';"
+      ],
+      "headers": ["  const { logout } = useContext(AuthContext);"],
+      "renders": [
+        "      <Button label='LOGOUT' style={{ primaryContainerStyle: { margin: 20 } }} onPress={logout} />"
+      ]
+    },
+    {
+      "id": "login-phonenumber-udtemplate",
+      "templateName": "Login with phone number template",
+      "componentName": "LoginComponent",
+      "imports": [
+        "import { LoginComponent, LoginComponentRef,DefaultLogoIcon,PasswordMask  } from 'auth-user-component';",
+        "import { CountryPicker, ThemeContext } from 'react-native-theme-component';"
+      ],
+      "headers": [
+        "  const [isVisiblePassword, setVisiblePassword] = useState(false);",
+        "  const loginRefs = useRef<LoginComponentRef>();",
+        ""
+      ],
+      "renders": [
+        "      <LoginComponent",
+        "        ref={loginRefs}",
+        "        Root={{",
+        "          props: {",
+        "            onLoginSuccess: (profile) => {",
+        "              $fn-login-success",
+        "            },",
+        "            onLoginFailed: (error) => {",
+        "              $fn-login-failed",
+        "            },",
+        "            onPressForgotPassword: () => {",
+        "              $fn-forgot-password",
+        "            },",
+        "            onPressRegister: () => {",
+        "              $fn-register",
+        "            },",
+        "          },",
+        "          components: {",
+        "             header: <></>,",
+        "             footer: (",
+        "                 <View style={styles.footer}>",
+        "                   <Text style={styles.footerText}>",
+        "                       UnionDigital Bank is regulated by the Bangko Sentral ng Pilipinas.",
+        "                   </Text>",
+        "                   <Text style={styles.footerText}>",
+        "                       Deposits are insured by the Philippine Deposit Insurance",
+        "                   </Text>",
+        "                   <Text style={styles.footerText}>Corporation up to PHP500,000 per depositor.</Text>",
+        "                 </View>",
+        "             ),",
+        "          },",
+        "          style: {",
+        "             logoContainerStyle: {",
+        "                 alignSelf: 'flex-start',",
+        "                 marginTop: -40,",
+        "             },",
+        "             containerStyle: {",
+        "                 flex: 1,",
+        "                 padding: 24,",
+        "                 paddingTop: 0,",
+        "             },",
+        "             formTitleStyle: {",
+        "                 fontSize: 22,",
+        "                 color: '#5E0CBC',",
+        "                 marginBottom: 32,",
+        "                 marginTop: -32,",
+        "             },",
+        "             loginButtonStyle: {",
+        "                 primaryContainerStyle: {",
+        "                   marginTop: 220,",
+        "                 },",
+        "             },",
+        "             noneAccountLabelStyle: {",
+        "                 fontSize: 14,",
+        "                 color: '#000',",
+        "                 lineHeight: 20,",
+        "             },",
+        "             signUpContainerStyle: {",
+        "                 flexDirection: 'row',",
+        "                 marginVertical: 32,",
+        "                 alignSelf: 'center',",
+        "             },",
+        "             signUpLabelStyle: {",
+        "                 fontSize: 14,",
+        "                 color: '#FF9800',",
+        "                 lineHeight: 20,",
+        "                 textDecorationLine: 'none',",
+        "                 marginHorizontal: 8,",
+        "                 fontWeight: 'bold',",
+        "             },",
+        "             forgotPasswordLabelStyle: {",
+        "                 color: '#FF9800',",
+        "                 fontSize: 14,",
+        "                 fontWeight: '700',",
+        "             },",
+        "             forgotPasswordContainerStyle: {",
+        "                 alignSelf: 'center',",
+        "             },",
+        "         },",
+        "        }}",
+        "        InputForm={{",
+        "          style: { passwordInputFieldStyle: { containerStyle: { marginTop: 24 } } },",
+        "          props: {",
+        "            onPressDialCode: () => {",
+        "              setShowCountryPicker(true);",
+        "            },",
+        "          },",
+        "        }}",
+        "        InputForm={{",
+        "          component: {",
+        "            passwordIcon: <View />,",
+        "            usernameIcon: <>< />,",
+        "            suffixIcon: (",
+        "              <PasswordMask",
+        "                isVisible={isVisiblePassword}",
+        "                onPress={() => setVisiblePassword(!isVisiblePassword)}",
+        "              />",
+        "            ),",
+        "          },",
+        "          style: {",
+        "            passwordInputWrapperStyle: {",
+        "              marginTop: 24,",
+        "            },",
+        "            passwordInputFieldStyle: {",
+        "              contentContainerStyle: {",
+        "                backgroundColor: '#fff',",
+        "              },",
+        "            },",
+        "            userNameInputFieldStyle: {",
+        "              contentContainerStyle: {",
+        "                borderWidth: 1,",
+        "                borderRadius: 5,",
+        "                borderBottomWidth: 1,",
+        "                marginBottom: 20,",
+        "                backgroundColor: '#fff',",
+        "              },",
+        "              inputContainerStyle: {",
+        "                height: 42,",
+        "              },",
+        "              textInputStyle: {",
+        "                fontSize: 15,",
+        "                color: '#000000',",
+        "              },",
+        "            },",
+        "          },",
+        "          props: {",
+        "            onPressDialCode: () => {},",
+        "            withDialCode: false,",
+        "            withLabel: true,",
+        "            isVisiblePassword: isVisiblePassword,",
+        "          },",
+        "        }}",
+        "      />"
+      ],
+      "functions": [
+        {
+          "id": "fn-login-success",
+          "params": [
+            {
+              "name": "profile",
+              "type": "Profile"
+            }
+          ]
+        },
+        {
+          "id": "fn-login-failed",
+          "params": [
+            {
+              "name": "error",
+              "type": "Error"
+            }
+          ]
+        },
+        {
+          "id": "fn-forgot-password",
+          "params": []
+        },
+        {
+          "id": "fn-register",
+          "params": []
+        }
+      ]
+    },
+    {
+      "id": "register-template",
+      "templateName": "Simple register template",
+      "componentName": "LoginComponent",
+      "imports": ["import { InviteCodeQuestionScreen } from 'react-native-register-component';"],
+      "headers": [],
+      "renders": [
+        "<InviteCodeQuestionScreen",
+        "  onPress={(data) => {",
+        "    if (data.withCode) {",
+        "      //navigation.navigate(Route.INVITATION_CODE_SCREEN, {});",
+        "    } else {",
+        "     // navigation.navigate(Route.JOIN_LIST_SCREEN, {});",
+        "    }",
+        "  }}",
+        "  onPressBack={() => {",
+        "    navigation.goBack();",
+        "  }}",
+        "/>"
+      ]
+    },
+    {
+      "id": "input-phonenumber-template",
+      "templateName": "Input phone number template",
+      "componentName": "InputPhoneNumberComponent",
+      "imports": [
+        "import { InputPhoneNumberComponent, InputPhoneNumberComponentRef } from 'auth-user-component';"
+      ],
+      "headers": ["  const inputPhoneNumberRefs = useRef<InputPhoneNumberComponentRef>();"],
+      "renders": [
+        "      <InputPhoneNumberComponent",
+        "       ref={inputPhoneNumberRefs}",
+        "       Root={{",
+        "         props: {",
+        "           onInputPhoneNumberSuccess: () => $fn-input-phone-number-success",
+        "           onPressBack: $fn-go-back",
+        "         },",
+        "       }}",
+        "     />"
+      ]
+    },
+    {
+      "id": "change-password-component",
+      "templateName": "change password template",
+      "componentName": "ChangePassword",
+      "imports": [
+        "import { ChangePassword } from 'auth-user-component';",
+        "import { PasswordMask } from 'react-native-register-component';",
+        "import { ChangePasswordRef } from 'auth-user-component/src/change-password-component/types';"
+      ],
+      "headers": [
+        "  const passwordRefs = useRef<ChangePasswordRef>();",
+        "  const [isVisiblePassword, setVisiblePassword] = useState(true);",
+        "  const [isNewVisiblePassword, setNewVisiblePassword] = useState(true);",
+        "  const [isConfirmVisiblePassword, setConfirmVisiblePassword] = useState(true);"
+      ],
+      "renders": [
+        "      <ChangePassword",
+        "       ref={passwordRefs}",
+        "       Root={{",
+        "         props: {",
+        "           onRequestResetSuccess: () => $fn-input-phone-number-success",
+        "           onPressBack: $fn-go-back",
+        "           onPress: $fn-on-press",
+        "         },",
+        "       }}",
+        "       InputForm: {{",
+        "         component: {",
+        "         usernameIcon: <View />,",
+        "         suffixIcon: (",
+        "           <PasswordMask",
+        "             isVisible={isVisiblePassword}",
+        "             onPress={() => setVisiblePassword(!isVisiblePassword)}",
+        "           />",
+        "         ),",
+        "         newSuffixIcon: (",
+        "           <PasswordMask",
+        "             isVisible={isNewVisiblePassword}",
+        "             onPress={() => setNewVisiblePassword(!isNewVisiblePassword)}",
+        "           />",
+        "         ),",
+        "         confirmSuffixIcon: (",
+        "           <PasswordMask",
+        "             isVisible={isConfirmVisiblePassword}",
+        "              onPress={() => setConfirmVisiblePassword(!isConfirmVisiblePassword)}",
+        "            />",
+        "         ),",
+        "       },",
+        "       }}",
+        "       props: {",
+        "         onPressDialCode: $fn-on-press",
+        "         isVisiblePassword: isVisiblePassword,",
+        "         isNewVisiblePassword: isNewVisiblePassword,",
+        "         isConfirmVisiblePassword: isConfirmVisiblePassword,",
+        "       },",
+        "      />"
+      ]
+    }
+  ],
+  "texts": {
+    "login_component": {
+      "lbl_sign_in": "Sign In",
+      "lbl_email": "Email",
+      "lbl_mobile_number": "Mobile number",
+      "lbl_password": "Password",
+      "btn_forgot_password": "Forgot password",
+      "btn_login": "LOGIN",
+      "btn_sign_up": "Sign up here",
+      "lbl_not_an_account": "Not a user yet?"
+    },
+    "change_password": {
+      "lbl_change_password": "Change Password",
+      "lbl_sub_title": "Enter details below.",
+      "lbl_current_password": "Current Password",
+      "lbl_new_password": "New Password",
+      "lbl_confirm_password": "Confirm New Password",
+      "msg_rule_1": "Must be at least 8 characters",
+      "msg_rule_2": "Must contain at least 1 number",
+      "msg_rule_3": "Must contain at least 1 upper case",
+      "msg_rule_4": "Must contain at least 1 special character",
+      "plh_current_password": "Enter current password",
+      "plh_new_password": "Enter new password",
+      "plh_confirm_password": "Re-enter new password",
+      "val_enter_valid_password": "Password does not match",
+      "lbl_error_title": "Oops!",
+      "lbl_error_message": "The current password you entered is invalid. Please try again.",
+      "lbl_success_title": "Success!",
+      "msg_success": "Success!",
+      "btn_success_next": "Proceed to dashboard"
+    },
+    "input_phone_number_component": {
+      "lbl_proceed": "Proceed",
+      "lbl_error_title": "Oops!",
+      "lbl_error_message": "Looks like the mobile number you entered is not linked to a UnionDigital Bank account. Please try another mobile number or login to your account.",
+      "lbl_forgot_password": "Forgot password",
+      "lbl_mobile_number": "Enter mobile number",
+      "lbl_enter_phone_number": "Enter your mobile number to verify your identity."
+    },
+    "reset_password": {
+      "lbl_title": "Nominate new password",
+      "lbl_subtitle": "Nominate your new password below.",
+      "lbl_btn_save": "Save new password.",
+      "lbl_success_title": "Success!",
+      "lbl_success_message": "Your password was successfully updated!",
+      "lbl_success_next_btn": "Proceed to Login",
+      "lbl_password_invalid_title": "Oops!",
+      "lbl_password_invalid_message": "New password is too similar to your current password. Please try another password."
+    },
+    "otp_verify_phone_number": {
+      "lbl_title": "Please enter One-Time Password",
+      "lbl_description": "We have sent you a One-Time Password (OTP) to the number *******",
+      "lbl_invalid_code": "Invalid OTP, Please try again"
+    }
+  }
+}
