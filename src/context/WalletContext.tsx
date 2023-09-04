@@ -1,6 +1,7 @@
 // WalletContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { WalletService } from '../services/WalletService';
+import { useAuth } from 'react-native-auth-component';
 
 // Define the wallet details interface
 interface WalletDetails {
@@ -26,6 +27,7 @@ interface WalletContextType {
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 const walletService = WalletService.instance()
 export const WalletProvider: React.FC = ({ children }) => {
+  const { user } = useAuth();
   const [walletDetails, setWalletDetails] = useState<WalletDetails[] | null>(null);
   const [paging, setPaging] = useState({
     totalRecords: 0,
@@ -60,15 +62,16 @@ export const WalletProvider: React.FC = ({ children }) => {
         });
       }
     } catch (error) {
-      console.log('error', error);
-
       console.error('Error fetching wallet details:', error);
     }
   };
 
   useEffect(() => {
     // Fetch the initial page of wallet details
-    fetchWalletDetails(paging.pageNumber, paging.pageSize);
+    if (user) {
+      fetchWalletDetails(paging.pageNumber, paging.pageSize);
+    }
+
   }, [paging.pageNumber, paging.pageSize]);
 
   return (
