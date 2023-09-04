@@ -1,5 +1,5 @@
 {
-  "name": "react-native-dashboard-component",
+  "name": "dashboard-component",
   "version": "1.1.181",
   "description": "A component for authentication flow by 101D",
   "repository": "https://github.com/101digital/react-native-dashboard-component.git",
@@ -31,7 +31,7 @@
     "react-native-app-auth": "6.4.3",
     "react-native-modal": "13.0.0",
     "react-native-svg": "12.4.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.21"
   },
   "resolutions": {
     "@react-native-community/cli-platform-ios": "4.13.0"
