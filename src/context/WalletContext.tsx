@@ -20,7 +20,8 @@ interface WalletContextType {
     pageSize: number;
     pageNumber: number;
   };
-  fetchWalletDetails: (page: number, pageSize: number) => Promise<boolean>;
+  fetchWalletDetails: (page: number, pageSize: number,type?: string) => Promise<boolean>;
+
 }
 
 // Create the wallet context
@@ -35,10 +36,10 @@ export const WalletProvider: React.FC = ({ children }) => {
     pageNumber: 1,
   });
 
-  const fetchWalletDetails = async (page: number, pageSize: number) => {
+  const fetchWalletDetails = async (page: number, pageSize: number,type?: string) => {
     try {
       // Call the wallet service to get wallet details with pagination parameters
-      const response = await walletService.getWallets(page, pageSize);
+      const response = await walletService.getWallets(page, pageSize,type);
 
       // Check if the response contains data
       if (response.data && response.data.length > 0) {
@@ -49,6 +50,8 @@ export const WalletProvider: React.FC = ({ children }) => {
           accountNumber: wallet.bankAccount.accountNumber,
           accountType: wallet.bankAccount.accountType,
           walletName: wallet.walletName,
+          accountSubType:wallet.bankAccount.accountSubType,
+          currencyCode:wallet.currencyCode
         }));
 
         // Set the walletDetails state

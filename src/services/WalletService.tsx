@@ -23,19 +23,24 @@ export class WalletService {
     }
 
 
-    getWallets = async (page: number, pageSize: number) => {
-        try {
-            if (!this._walletClient) {
-                throw new Error('Wallet Client is not registered');
-            }
-
-            const response = await this._walletClient.get(
-              `wallets?bankId=${env.api.bankId}&page=${page}&pageSize=${pageSize}`
-            );
-            return response.data;
-        } catch (error) {
-            throw new Error('Failed to get wallet list : ' + error);
+    getWallets = async (page: number, pageSize: number, type?: string) => {
+      try {
+        if (!this._walletClient) {
+          throw new Error('Wallet Client is not registered');
         }
+
+        let url = `wallets?bankId=${env.api.bankId}&page=${page}&pageSize=${pageSize}`;
+
+        if (type) {
+          url += `&type=${type}`;
+        }
+
+        const response = await this._walletClient.get(url);
+        return response.data;
+      } catch (error) {
+        throw new Error('Failed to get wallet list: ' + error);
+      }
     }
+
 
 }
