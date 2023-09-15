@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, StyleProp, ViewStyle, TextStyle, ScrollView } from 'react-native';
-import { useUser, useWallet } from 'react-native-dashboard-component';
+import { useWallet } from 'react-native-dashboard-component';
 import { colors as defaultColors } from '../../assets/colors';
 import { DepositDashboardComponent, FinanceDashboardComponent } from 'react-native-dashboard-component';
 
