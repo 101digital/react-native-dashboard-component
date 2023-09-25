@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { colors as defaultColors } from '../../assets/colors';
+import { colors as defaultColors } from '@/assets/Colors';
 import { useWallet } from 'react-native-dashboard-component';
 
 type DepositDashboardComponentProps = {
@@ -82,25 +82,25 @@ const DepositDashboardComponent: React.FC<DepositDashboardComponentProps> = ({
         {/* Part A: Action Items */}
         <View style={[defaultStyles.actionItems, customStyles.actionItems]}>
           <TouchableOpacity
-            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.primary }]}
+            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.Pink }]}
           >
             <Icon name="history" size={30} color="white" />
             <Text style={[defaultStyles.actionText, customStyles.actionText, { color: 'white' }]}>History</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.primary }]}
+            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.Pink  }]}
           >
             <Icon name="file-text-o" size={30} color="white" />
             <Text style={[defaultStyles.actionText, customStyles.actionText, { color: 'white' }]}>e-Statement</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.primary }]}
+            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.Pink }]}
           >
             <Icon name="plus-circle" size={30} color="white" />
             <Text style={[defaultStyles.actionText, customStyles.actionText, { color: 'white' }]}>New Pot</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.primary }]}
+            style={[defaultStyles.actionButton, customStyles.actionButton, { backgroundColor: colors.Pink }]}
           >
             <Icon name="line-chart" size={30} color="white" />
             <Text style={[defaultStyles.actionText, customStyles.actionText, { color: 'white' }]}>Cashflow</Text>
@@ -152,8 +152,8 @@ const DepositDashboardComponent: React.FC<DepositDashboardComponentProps> = ({
                 size="small"
                 color={
                   customStyles.accountType?.color ||
-                  colors?.primary ||
-                  defaultColors.primaryText
+                  colors?.Pink ||
+                  defaultColors.GraySubtitle
                 }
               />
             ) : null
@@ -167,7 +167,7 @@ const DepositDashboardComponent: React.FC<DepositDashboardComponentProps> = ({
 const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: defaultColors.White,
   },
   part1: {
     paddingTop: 15,
@@ -187,17 +187,17 @@ const defaultStyles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: defaultColors.primaryText,
+    color: defaultColors.GraySubtitle,
   },
   balance: {
     fontSize: 24,
     marginTop: 8,
-    color: defaultColors.primaryText,
+    color: defaultColors.GraySubtitle,
   },
   userInfo: {
     fontSize: 16,
     marginTop: 8,
-    color: defaultColors.secondaryText,
+    color: defaultColors.OffWhite,
   },
   part2: {
     borderTopLeftRadius: 24,
@@ -224,7 +224,7 @@ const defaultStyles = StyleSheet.create({
     marginTop: 8,
   },
   accountCard: {
-    backgroundColor: 'white',
+    backgroundColor: defaultColors.White,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -234,16 +234,16 @@ const defaultStyles = StyleSheet.create({
   accountType: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: defaultColors.primaryText,
+    color: defaultColors.GraySubtitle,
   },
   accountNumber: {
     fontSize: 14,
-    color: defaultColors.secondaryText,
+    color: defaultColors.OffWhite,
   },
   accountBalance: {
     fontSize: 18,
     marginTop: 8,
-    color: defaultColors.primaryText,
+    color: defaultColors.GraySubtitle,
   },
 });
 

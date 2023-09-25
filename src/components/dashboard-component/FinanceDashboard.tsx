@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useProductInfo } from 'react-native-dashboard-component';
-import { colors as defaultColors } from '../../assets/colors';
+import { colors as defaultColors } from '@/assets/Colors';
 
 type FinanceDashboardComponentProps = {
   colors?: typeof defaultColors;
@@ -88,7 +88,7 @@ const FinanceDashboardComponent: React.FC<FinanceDashboardComponentProps> = ({
 const defaultStyles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: defaultColors.OffWhite,
     padding: 16,
   },
   title: {
@@ -98,20 +98,18 @@ const defaultStyles = StyleSheet.create({
   },
   productInfoContainer: {
     marginTop: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
     paddingBottom: 16,
-    backgroundColor:defaultColors.primary,
+    backgroundColor:defaultColors.GrayScale,
     padding:15,
     borderRadius:10
   },
   productInfoText: {
     fontSize: 16,
     marginBottom: 8,
-    color:'white'
+    color:defaultColors.White,
   },
   createButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: defaultColors.Pink,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 5,
@@ -120,7 +118,7 @@ const defaultStyles = StyleSheet.create({
     marginTop: 8,
   },
   createButtonText: {
-    color: 'white',
+    color: defaultColors.White,
     fontWeight: 'bold',
   },
 });
