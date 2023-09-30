@@ -1,6 +1,6 @@
 {
-  "name": "dashboard-component",
-  "version": "1.1.181",
+  "name": "react-native-dashboard-component",
+  "version": "1.0.0",
   "description": "A component for authentication flow by 101D",
   "repository": "https://github.com/101digital/react-native-dashboard-component.git",
   "main": "index.ts",
@@ -12,7 +12,7 @@
     "lint": "tsc --noEmit && eslint src/ --ext .js,.jsx,.ts,.tsx"
   },
   "keywords": [],
-  "author": "tuyennguyen-101D",
+  "author": "sharmal",
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.9.48",
