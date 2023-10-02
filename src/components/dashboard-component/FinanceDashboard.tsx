@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { useProductInfo } from 'react-native-dashboard-component';
 import { colors as defaultColors } from '@/assets/Colors';
-
+import { Button } from 'react-native-theme-component';
 type FinanceDashboardComponentProps = {
   colors?: typeof defaultColors;
   styles?: {};
@@ -63,12 +63,16 @@ const FinanceDashboardComponent: React.FC<FinanceDashboardComponentProps> = ({
               <Text style={[defaultStyles.productInfoText, customStyles.productInfoText]}>
                 {item.detail.description}
               </Text>
-              <TouchableOpacity
+              <Button
+                label='Create'
                 onPress={() => handleCreateButtonClick(item)}
-                style={[defaultStyles.createButton, customStyles.createButton]}
-              >
-                <Text style={[defaultStyles.createButtonText, customStyles.createButtonText]}>Create</Text>
-              </TouchableOpacity>
+                variant= 'primary'
+                style={{
+                  primaryContainerStyle: {
+                    flex: 1,
+                  }
+                }}
+              />
             </View>
           )}
           horizontal={isHorizontal} // Set horizontal prop based on the isHorizontal prop
